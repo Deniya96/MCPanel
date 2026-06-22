@@ -1,0 +1,45 @@
+<div class="content">
+  <div class="console" #console>
+    <div *ngFor="let line of log" [ngClass]="getLogClass(line)">
+      {{ line }}
+    </div>
+  </div>
+
+  <div class="command">
+    <input
+      [(ngModel)]="command"
+      (keyup.enter)="handleCommand()"
+      (keydown.arrowup)="navigateHistory('up')"
+      (keydown.arrowdown)="navigateHistory('down')"
+      class="input"
+      autocomplete="off"
+    />
+
+    <span class="con">></span>
+  </div>
+
+  <div class="butts">
+    <button (click)="startServer()" class="controlButt"><span class="le-start"></span>Start</button>
+    <button (click)="stopServer()" class="controlButt" [disabled]="ServerStatus === 'offline'"><span
+      class="le-stop"></span>Stop
+    </button>
+    <button (click)="restartServer()" class="controlButt" [disabled]="ServerStatus === 'offline'"><span
+      class="le-restart"></span>Restart
+    </button>
+    <p class="serverStatus">
+<span
+  class="ind_status"
+  [class.active]="ServerStatus === 'Online' || ServerStatus === 'Offline'"
+  [class.green]="ServerStatus === 'Online'"
+  [class.red]="ServerStatus === 'Offline'"
+  [class.gray]="ServerStatus !== 'Online' && ServerStatus !== 'Offline'"
+></span>
+      status: {{ ServerStatus }}
+    </p>
+
+  </div>
+
+</div>
+
+
+

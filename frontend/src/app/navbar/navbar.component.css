@@ -1,0 +1,63 @@
+.nav {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  margin: 0 0;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.routes-container {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.route {
+  font-size: 18px;
+  color: #FCF9DD;
+  font-family: var(--logo-font);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, border-color 0.2s;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
+
+.route:hover {
+  opacity: 1;
+}
+
+.active-route {
+  opacity: 1;
+  border-bottom-color: #FCF9DD;
+}
+
+.text-logo {
+  color: #FCF9DD;
+  font-size: 32px;
+  font-family: var(--logo-font);
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+span.logo {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  background-image: url("/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.div-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
