@@ -13,36 +13,67 @@ let mcServer = null;
 const server = require("http").createServer(app);
 const wss = new WebSocket.Server({server});
 
+//##########
+//##config##
+//##########
+
+const CONFIG_PATH = path.join(__dirname, "config.json");
+
+
+const defaultConfig = {
+    serverStartProperties: "-Dfile.encoding=UTF-8 -Xmx8G -jar server.jar -nogui",
+    serverPath: "",
+    javaPath: "java"
+};
+
+function loadConfig() {
+    if (!fs.existsSync(CONFIG_PATH)) {
+        fs.writeFileSync(CONFIG_PATH, JSON.stringify(defaultConfig, null, 2));
+        return defaultConfig;
+    }
+    return JSON.parse(fs.readFileSync(CONFIG_PATH, "utf-8"));
+}
+
+function saveConfig(config) {
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
+}
+
+
+app.get("/settings", (req, res) => {
+    res.json(loadConfig());
+});
+
+app.post("/settings", (req, res) => {
+    saveConfig(req.body);
+    res.json({status: "saved"});
+});
+
+//##########
+//##server##
+//##########
 
 function startMinecraftServer(wsBroadcast = true) {
     if (mcServer) return false;
 
-    // const serverDir = path.resolve("D:/Server/Server Minecraft/");
-    // const serverDir = path.resolve("D:/Server/ServerNew");
-    // const serverDir = path.resolve("C:/Users/Admin/Desktop/ServerNew");
-    //   const serverDir = path.resolve("C:/Users/Admin/Desktop/visivanie")
-    //   const serverDir = path.resolve("C:/Users/Admin/Desktop/serverparkur");
-    const serverDir = path.resolve("C:/Users/Admin/Desktop/aiserver");
+    const config = loadConfig();
+    const serverDir = path.resolve(config.serverPath);
+    const args = config.serverStartProperties.split(" ");
+
+
     mcServer = spawn(
-        "java",
-        [
-            "-Dfile.encoding=UTF-8",
-            "-Xmx8G",
-            "-jar",
-            "server.jar",
-            "-nogui"
-        ],
+        config.javaPath, args,
         {
             cwd: serverDir,
             windowsHide: true
         }
     );
 
-
     const iconv = require("iconv-lite");
 
+    const encoding = process.platform === "win32" ? "win1251" : "utf-8";
+
     mcServer.stdout.on("data", (data) => {
-        const output = iconv.decode(data, "win1251");
+        const output = iconv.decode(data, encoding);
         console.log("STDOUT:", output);
         if (wsBroadcast) {
             wss.clients.forEach((client) => {
@@ -54,7 +85,7 @@ function startMinecraftServer(wsBroadcast = true) {
     });
 
     mcServer.stderr.on("data", (data) => {
-        const output = iconv.decode(data, "win1251");
+        const output = iconv.decode(data, encoding);
         console.error("STDERR:", output);
         if (wsBroadcast) {
             wss.clients.forEach((client) => {

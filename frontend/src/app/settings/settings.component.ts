@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-settings',
@@ -10,40 +11,43 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './settings.component.css'
 })
 export class SettingsComponent implements OnInit {
-  serverStartProperties = '-Dfile.encoding=UTF-8 -Xmx8G -jar server.jar -nogui';
+  private apiUrl = 'http://localhost:3000';
+
+  serverStartProperties = '';
   serverPath = '';
   customJavaPath = false;
   javaPath = 'java';
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.loadSettings();
   }
 
   loadSettings() {
-    const savedServerStartProperties = localStorage.getItem('serverStartProperties');
-    if (savedServerStartProperties !== null) this.serverStartProperties = savedServerStartProperties;
-
-    const savedServerPath = localStorage.getItem('serverPath');
-    if (savedServerPath !== null) this.serverPath = savedServerPath;
-
-    const savedCustomJavaPath = localStorage.getItem('customJavaPath');
-    if (savedCustomJavaPath !== null) this.customJavaPath = savedCustomJavaPath === 'true';
-
-    const savedJavaPath = localStorage.getItem('javaPath');
-    if (savedJavaPath !== null) this.javaPath = savedJavaPath;
+    this.http.get<any>(`${this.apiUrl}/settings`).subscribe({
+      next: (config) => {
+        this.serverStartProperties = config.serverStartProperties;
+        this.serverPath = config.serverPath;
+        this.javaPath = config.javaPath;
+      },
+      error: (err) => console.error('Failed to load settings:', err)
+    });
   }
 
   saveSettings() {
-    console.log('Settings saved:', {
+    const config = {
       serverStartProperties: this.serverStartProperties,
       serverPath: this.serverPath,
-      customJavaPath: this.customJavaPath,
-      javaPath: this.javaPath
+      javaPath: this.javaPath || 'java'
+    };
+
+    this.http.post(`${this.apiUrl}/settings`, config).subscribe({
+      next: () => alert('Settings successfully updated!'),
+      error: (err) => {
+        console.error('Failed to save settings:', err);
+        alert('Failed to save settings');
+      }
     });
-    localStorage.setItem('serverStartProperties', this.serverStartProperties);
-    localStorage.setItem('serverPath', this.serverPath);
-    localStorage.setItem('customJavaPath', String(this.customJavaPath));
-    localStorage.setItem('javaPath', this.javaPath);
-    alert('Settings successfully updated!');
   }
 }
