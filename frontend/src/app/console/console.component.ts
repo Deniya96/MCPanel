@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, OnDestroy} from '@angular/core';
 import {ConsoleService} from './console.service';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
@@ -13,7 +13,7 @@ import {CommonModule} from '@angular/common';
     CommonModule,
   ]
 })
-export class ConsoleComponent implements OnInit, AfterViewInit {
+export class ConsoleComponent implements OnInit, AfterViewInit, OnDestroy {
   log: string[] = [];
   command: string = '';
   commandHistory: string[] = [];
@@ -40,6 +40,12 @@ export class ConsoleComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.getServerStatus();
+  }
+
+  ngOnDestroy() {
+    if (this.statusInterval) {
+      clearInterval(this.statusInterval);
+    }
   }
 
   private readonly SCROLL_LIMIT: number = 50;
@@ -105,7 +111,10 @@ export class ConsoleComponent implements OnInit, AfterViewInit {
   }
 
   restartServer() {
-    this.consoleService.restartServer()
+    this.consoleService.restartServer().subscribe({
+      next: (res) => console.log('Server restarting:', res),
+      error: (err) => console.error('Error restarting server:', err),
+    })
   }
 
   getServerStatus() {
@@ -121,7 +130,4 @@ export class ConsoleComponent implements OnInit, AfterViewInit {
 
     });
   }
-
-
-  protected readonly ConsoleService = ConsoleService;
 }

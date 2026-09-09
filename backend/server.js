@@ -105,7 +105,6 @@ function startMinecraftServer(wsBroadcast = true) {
 }
 
 app.post("/start-server", (req, res) => {
-    console.log("Received request to start server");
     const started = startMinecraftServer(true);
     if (started) {
         res.json({status: "Server started"});
@@ -120,12 +119,16 @@ app.post("/restart-server", (req, res) => {
         return res.status(400).json({error: "Server is not running"});
     }
 
-    mcServer.on("exit", () => {
+
+
+    mcServer.once("exit", () => {
+        console.log("exit event fired, restarting...");
         startMinecraftServer(true);
     });
 
     mcServer.stdin.write("stop\n");
     res.json({status: "Restarting..."});
+
 });
 
 

@@ -133,33 +133,15 @@
   margin: 0;
 }
 
-.log-info {
-  color: #FCF9DD;
+.log-info, .log-warn, .log-error, .log-default {
   opacity: 0;
   transform: translateY(10px);
   animation: fadeIn 250ms ease-out forwards;
 }
 
-.log-warn {
-  color: #f1c40f;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeIn 250ms ease-out forwards;
-}
-
-.log-error {
-  color: #ff3030;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeIn 250ms ease-out forwards;
-}
-
-.log-default {
-  color: #FCF9DD;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeIn 250ms ease-out forwards;
-}
+.log-info, .log-default { color: #FCF9DD; }
+.log-warn { color: #f1c40f; }
+.log-error { color: #ff3030; }
 
 .le-start {
   display: inline-block;
@@ -191,6 +173,10 @@
   background-size: cover;
 }
 
+.controlButt:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 @keyframes fadeIn {
   to {

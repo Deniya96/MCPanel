@@ -20,10 +20,10 @@
 
   <div class="butts">
     <button (click)="startServer()" class="controlButt"><span class="le-start"></span>Start</button>
-    <button (click)="stopServer()" class="controlButt" [disabled]="ServerStatus === 'offline'"><span
+    <button (click)="stopServer()" class="controlButt" [disabled]="ServerStatus === 'Offline'"><span
       class="le-stop"></span>Stop
     </button>
-    <button (click)="restartServer()" class="controlButt" [disabled]="ServerStatus === 'offline'"><span
+    <button (click)="restartServer()" class="controlButt" [disabled]="ServerStatus === 'Offline'"><span
       class="le-restart"></span>Restart
     </button>
     <p class="serverStatus">
