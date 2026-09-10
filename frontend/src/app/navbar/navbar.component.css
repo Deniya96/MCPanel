@@ -15,7 +15,7 @@
 
 .route {
   font-size: 18px;
-  color: #FCF9DD;
+  color: var(--text);
   font-family: var(--logo-font);
   font-weight: 500;
   cursor: pointer;
@@ -32,11 +32,11 @@
 
 .active-route {
   opacity: 1;
-  border-bottom-color: #FCF9DD;
+  border-bottom-color: var(--text);
 }
 
 .text-logo {
-  color: #FCF9DD;
+  color: var(--text);
   font-size: 32px;
   font-family: var(--logo-font);
   margin: 0;
@@ -60,4 +60,19 @@ span.logo {
   align-items: center;
   justify-content: center;
   gap: 12px;
+}
+
+
+@media (max-width: 700px) {
+  .routes-container {
+    gap: 16px;
+  }
+
+  .route {
+    font-size: 16px;
+  }
+
+  .text-logo {
+    font-size: 24px;
+  }
 }

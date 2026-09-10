@@ -29,7 +29,6 @@
     <p class="serverStatus">
 <span
   class="ind_status"
-  [class.active]="ServerStatus === 'Online' || ServerStatus === 'Offline'"
   [class.green]="ServerStatus === 'Online'"
   [class.red]="ServerStatus === 'Offline'"
   [class.gray]="ServerStatus !== 'Online' && ServerStatus !== 'Offline'"

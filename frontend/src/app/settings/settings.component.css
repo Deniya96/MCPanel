@@ -3,7 +3,7 @@
   max-width: 600px;
   margin: 0 auto;
   font-family: var(--font);
-  color: #FCF9DD;
+  color: var(--text);
 }
 
 .header {
@@ -52,14 +52,14 @@
   border: 2px var(--border) solid;
   border-radius: 8px;
   padding: 12px;
-  color: #FCF9DD;
+  color: var(--text);
   font-family: var(--font);
   font-size: 1rem;
   transition: border-color 0.2s;
 }
 
 .form-input:focus, .form-select:focus {
-  border-color: #FCF9DD;
+  border-color: var(--text);
   outline: none;
 }
 
@@ -91,7 +91,7 @@
 }
 
 .save-button {
-  background: #FCF9DD;
+  background: var(--text);
   color: var(--background);
   border: none;
   border-radius: 8px;
@@ -156,5 +156,5 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(24px);
-  background-color: #FCF9DD;
+  background-color: var(--text);
 }
