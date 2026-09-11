@@ -82,7 +82,7 @@ cd frontend
 ng serve
 ```
 
-Once running, the panel will be available at `http://localhost:4200` (or another port, depending on your configuration).
+Once running, the panel will be available at `http://localhost:4200`.
 
 ## Features
 
