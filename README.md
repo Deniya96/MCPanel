@@ -1,6 +1,6 @@
 # MCPanel
 
-A web panel for managing a Minecraft server. An alternative to the standard `.bat` file most people use to start and administer their server — MCPanel provides a convenient web interface instead of console scripts.
+MCPanel is a lightweight web panel for managing a Minecraft server without relying on `.bat` files or a terminal.
 
 
 > ⚠️ **Security Warning:** MCPanel currently has **no** authentication or authorization. Anyone who can access the panel can control the Minecraft server and execute server commands. Do not expose MCPanel directly to the public internet. Use it only on localhost or a trusted local network.
