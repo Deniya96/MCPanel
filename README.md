@@ -54,7 +54,7 @@ MCPanel/
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/Deniya96/MCPanel.git
 cd mcpanel
 
 # Install backend dependencies
