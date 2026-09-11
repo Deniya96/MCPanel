@@ -49,7 +49,7 @@ MCPanel/
 │
 └── README.md
 
-
+```
 ## Installation
 
 ```bash
