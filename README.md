@@ -50,23 +50,26 @@ MCPanel/
 └── README.md
 
 ```
+
 ## Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/Deniya96/MCPanel.git
-cd mcpanel
+cd MCPanel
 
-# Install backend dependencies
-cd backend
-npm install
-
-# Install frontend dependencies
-cd frontend
 npm install
 ```
 
 ## Running
+
+```bash
+npm start
+```
+
+This starts both the backend and frontend concurrently. Once running, the panel will be available at `http://localhost:4200`.
+
+<details>
+<summary>Running backend and frontend separately</summary>
 
 Backend:
 
@@ -81,6 +84,8 @@ Frontend:
 cd frontend
 ng serve
 ```
+
+</details>
 
 Once running, the panel will be available at `http://localhost:4200`.
 
